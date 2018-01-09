@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Check saved data and returns it.
         if (savedInstanceState != null) {
             pointsGained = savedInstanceState.getInt("pointsGained");
             questionNumber = savedInstanceState.getInt("questionNumber");
@@ -30,19 +31,25 @@ public class MainActivity extends AppCompatActivity {
             questionAsk.setText(question);
         }
     }
+    //Saving data (radiobuttons state, questions, points, etc. state).
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("pointsGained", pointsGained);
         outState.putInt("questionNumber", questionNumber);
+        if (questionNumber <= 16) {
         RadioGroup rg = findViewById(R.id.q1);
-        int id = rg.getCheckedRadioButtonId();
-        View radioB = rg.findViewById(id);
-        positionX = rg.indexOfChild(radioB);
-        outState.putInt("position", positionX);
+            int id = rg.getCheckedRadioButtonId();
+            View radioB = rg.findViewById(id);
+            positionX = rg.indexOfChild(radioB);
+            outState.putInt("position", positionX);
+        }
     }
+    //variable holds number of points gained in quiz.
     public int pointsGained = 0;
+    //variable setting correct question from array setQuestion.
     public int questionNumber = 0;
+    //variable set which radiobutton is checked.
     public int positionX;
 
 
@@ -56,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar questNum = findViewById(R.id.questions_bar);
         ProgressBar cdsPoints = findViewById(R.id.cds_bar);
         Button nextQ = findViewById(R.id.next);
+        //statement check is there any button checked, if not do nothing.
         if (rg.getCheckedRadioButtonId() == -1) {
         } else {
             questionNumber += 1;
@@ -179,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void readMore(View view) {
         String url = getString(R.string.url);
-
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
