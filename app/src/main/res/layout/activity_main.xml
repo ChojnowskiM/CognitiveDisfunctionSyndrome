@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pl.skylos.cognitivedisfunctionsystem.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/segment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="A"
+            />
+        <TextView
+            android:id="@+id/segment_desc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/segment_A"
+            />
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/A_dezorienation"
+            />
+
+        <RadioGroup
+            android:id="@+id/q1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/ans1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/ans_never" />
+
+            <RadioButton
+                android:id="@+id/ans2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/ans_once_6_months" />
+
+            <RadioButton
+                android:id="@+id/ans3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/ans_once_month" />
+
+            <RadioButton
+                android:id="@+id/ans4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/ans_few_month" />
+
+            <RadioButton
+                android:id="@+id/ans5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/ans_few_week" />
+        </RadioGroup>
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/next"
+            android:onClick="nextQuestion"/>
+        <TextView
+            android:id="@+id/question_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/question_of"/>
+        <ProgressBar
+            android:id="@+id/questions_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progress="0"
+            android:max="17"/>
+        <TextView
+            android:id="@+id/cds_points"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/dog_results"/>
+        <ProgressBar
+            android:id="@+id/cds_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progress="0"
+            android:max="95"/>
+    </LinearLayout>
+</ScrollView>
