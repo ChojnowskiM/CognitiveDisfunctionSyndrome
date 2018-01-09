@@ -21,14 +21,35 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             pointsGained = savedInstanceState.getInt("pointsGained");
             questionNumber = savedInstanceState.getInt("questionNumber");
-            positionX = savedInstanceState.getInt("position");
-            RadioGroup rg = findViewById(R.id.q1);
-            if (positionX != -1 ) {
-                ((RadioButton) rg.getChildAt(positionX)).setChecked(true);
-            }
+            TextView segment = findViewById(R.id.segment);
+            TextView segmentName = findViewById(R.id.segment_desc);
+            TextView questionNum = findViewById(R.id.question_number);
+            TextView cdsPointsText = findViewById(R.id.cds_points);
+            Button nextQ = findViewById(R.id.next);
             String question = setQuestion(questionNumber);
             TextView questionAsk = findViewById(R.id.question);
             questionAsk.setText(question);
+            questionNum.setText(getString(R.string.question_number) + (questionNumber+1) + getString(R.string.of) + " 17");
+            cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
+            if (questionNumber > 4 && questionNumber < 10) {
+                segment.setText("B");
+                segmentName.setText(getString(R.string.segment_B));
+            } else if (questionNumber > 9 && questionNumber < 12) {
+                segment.setText("C");
+                segmentName.setText(getString(R.string.segment_C));
+            } else if (questionNumber > 11) {
+                segment.setText("D");
+                segmentName.setText(getString(R.string.segment_D));
+                if (questionNumber == 16) {
+                    nextQ.setText(getString(R.string.result));
+                }
+            }
+/*         positionX = savedInstanceState.getInt("position");
+           RadioGroup rg = findViewById(R.id.q1);
+            //This run only if any button was checked.
+            if (positionX != -1 ) {
+                ((RadioButton) rg.getChildAt(positionX)).setChecked(true);
+            }*/
         }
     }
     //Saving data (radiobuttons state, questions, points, etc. state).
@@ -37,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("pointsGained", pointsGained);
         outState.putInt("questionNumber", questionNumber);
+/*        //This run only if there was no score layout opened.
         if (questionNumber <= 16) {
         RadioGroup rg = findViewById(R.id.q1);
             int id = rg.getCheckedRadioButtonId();
             View radioB = rg.findViewById(id);
             positionX = rg.indexOfChild(radioB);
             outState.putInt("position", positionX);
-        }
+        }*/
     }
     //variable holds number of points gained in quiz.
     public int pointsGained = 0;
@@ -66,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
         //statement check is there any button checked, if not do nothing.
         if (rg.getCheckedRadioButtonId() == -1) {
         } else {
+            //moving user to next question
             questionNumber += 1;
+                //run if it is the one before last question
             if (questionNumber >= 16) {
                 nextQ.setText(getString(R.string.result));
                 points();
@@ -75,25 +99,13 @@ public class MainActivity extends AppCompatActivity {
                 cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
                 questNum.setProgress(questionNumber);
                 cdsPoints.setProgress(pointsGained);
+                    //run if it is last question, showing results
                 if ( questionNumber > 16 ) {
-                    setContentView(R.layout.scores);
-                    TextView finalScore = findViewById(R.id.final_score);
-                    ProgressBar cds2 = findViewById(R.id.cds_bar2);
-                    TextView scoreDesc = findViewById(R.id.score_desc);
-                    finalScore.setText(String.valueOf(pointsGained));
-                    cds2.setProgress(pointsGained);
-                    if ( pointsGained < 8 ) {
-                        scoreDesc.setText(getString(R.string.points_normal));
-                    } else if (pointsGained >= 8 && pointsGained <= 23 ) {
-                        scoreDesc.setText(getString(R.string.points_low));
-                    } else if (pointsGained >= 24 && pointsGained <= 44 ) {
-                        scoreDesc.setText(getString(R.string.points_average));
-                    } else if (pointsGained >= 45) {
-                        scoreDesc.setText(getString(R.string.points_high));
-                    }
+                    score(view);
                 }
 
             } else {
+                //updating question to next one, clearing radiobuttons, updating progress bars
                 String question = setQuestion(questionNumber);
                 TextView questionAsk = findViewById(R.id.question);
                 questionAsk.setText(question);
@@ -103,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
                 questNum.setProgress(questionNumber);
                 cdsPoints.setProgress(pointsGained);
+                //changing headers depends of question
                 if (questionNumber > 4 && questionNumber < 10) {
                     segment.setText("B");
                     segmentName.setText(getString(R.string.segment_B));
@@ -139,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         question[16] = getString(R.string.D_uncommon);
         return question[questionNumber];
     }
+    //This method add points depends of which button is checked.
     public int points () {
         RadioGroup rg = findViewById(R.id.q1);
         int id = rg.getCheckedRadioButtonId();
@@ -180,18 +194,39 @@ public class MainActivity extends AppCompatActivity {
         }
         return pointsGained;
     }
+    //Method restarts quiz.
     public void restart(View view) {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
     }
+    //Method opens browser with given link.
     public void readMore(View view) {
         String url = getString(R.string.url);
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
     }
+    //Method stops app.
     public void quit(View view) {
         finish();
+    }
+    public void score(View view) {
+        setContentView(R.layout.scores);
+        TextView finalScore = findViewById(R.id.final_score);
+        ProgressBar cds2 = findViewById(R.id.cds_bar2);
+        TextView scoreDesc = findViewById(R.id.score_desc);
+        finalScore.setText(String.valueOf(pointsGained));
+        cds2.setProgress(pointsGained);
+        //Set description for given scores.
+        if ( pointsGained < 8 ) {
+            scoreDesc.setText(getString(R.string.points_normal));
+        } else if (pointsGained >= 8 && pointsGained <= 23 ) {
+            scoreDesc.setText(getString(R.string.points_low));
+        } else if (pointsGained >= 24 && pointsGained <= 44 ) {
+            scoreDesc.setText(getString(R.string.points_average));
+        } else if (pointsGained >= 45) {
+            scoreDesc.setText(getString(R.string.points_high));
+        }
     }
 }
