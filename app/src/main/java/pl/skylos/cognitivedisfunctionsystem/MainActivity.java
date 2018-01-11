@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String questionNumberKey = "questionNumber";
     private static final String lastPointsKey = "lastPointsGained";
     private static final String lastPointsArrayKey = "lastPointsArray";
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
     //variable stores data for last gained points.
     public int[] lastPoints = new int[17];
     int lastPointsGained = 0;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private int pointsGained = 0;
     //variable setting correct question from array setQuestion.
     private int questionNumber = 0;
+    private long mBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +176,13 @@ public class MainActivity extends AppCompatActivity {
             finish();
             startActivity(intent);
         } else if (questionNumber == 0) {
-            finish();
+            if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed();
+                return;
+            } else {
+                Toast.makeText(getBaseContext(), R.string.tap_to_exit, Toast.LENGTH_SHORT).show();
+            }
+            mBackPressed = System.currentTimeMillis();
         }
     }
 
@@ -184,10 +192,11 @@ public class MainActivity extends AppCompatActivity {
 
     //Method which makes button "next" working as intended.
     public void nextQuestion(View view) {
-        backButton.setEnabled(true);
+
         //statement check is there any button checked, if not do nothing.
         if (rg.getCheckedRadioButtonId() == -1) {
         } else {
+            backButton.setEnabled(true);
             //moving user to next question
             questionNumber += 1;
             //run if it is the one before last question

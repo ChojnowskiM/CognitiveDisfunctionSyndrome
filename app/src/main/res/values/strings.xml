@@ -47,4 +47,5 @@
     <string name="info">Sprawdź czy Twój pies cierpi na Zespół Zaburzeń Poznawczych, chorobę dotykającą psy w starszym wieku.</string>
     <string name="instruction">Zaznacz częstotliwość występowanie zachowania.</string>
     <string name="back">Cofnij</string>
+    <string name="tap_to_exit">Kliknij jeszcze raz, aby wyjść</string>
 </resources>
