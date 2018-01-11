@@ -15,6 +15,11 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private static final String pointsGainedKey = "pointsGained";
     private static final String questionNumberKey = "questionNumber";
+    private static final String lastPointsKey = "lastPointsGained";
+    private static final String lastPointsArrayKey = "lastPointsArray";
+    //variable stores data for last gained points.
+    public int[] lastPoints = new int[17];
+    int lastPointsGained = 0;
     //Variables defined to call findViewById once.
 private TextView segment;
 private TextView segmentName;
@@ -48,6 +53,8 @@ private ProgressBar cdsPoints;
         if (savedInstanceState != null) {
             pointsGained = savedInstanceState.getInt(pointsGainedKey);
             questionNumber = savedInstanceState.getInt(questionNumberKey);
+            lastPoints = savedInstanceState.getIntArray(lastPointsArrayKey);
+            lastPointsGained = savedInstanceState.getInt(lastPointsKey);
             //if scores was displayed on screen - saved to display them.
             if (questionNumber == 17) {
                 setContentView(R.layout.scores);
@@ -94,13 +101,37 @@ private ProgressBar cdsPoints;
         super.onSaveInstanceState(outState);
         outState.putInt(pointsGainedKey, pointsGained);
         outState.putInt(questionNumberKey, questionNumber);
+        outState.putInt(lastPointsKey, lastPointsGained);
+        outState.putIntArray(lastPointsArrayKey, lastPoints);
     }
-    //variable stores data for last gained points.
-/*    public int lastPoints;
+
+    public int lastPointsCounter(int questionNumber, int lastPointsGained) {
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        lastPoints[questionNumber] = lastPointsGained;
+        return lastPoints[questionNumber];
+    }
 
     public void onBackPressed() {
         if (questionNumber > 0 && questionNumber < 17 ) {
-            pointsGained -= lastPoints;
+            if (questionNumber >= 16) {
+                nextQ.setText(getString(R.string.next));
+            }
+            pointsGained -= lastPoints[questionNumber];
             questionNumber -= 1;
             String question = setQuestion(questionNumber);
             questionAsk.setText(question);
@@ -120,13 +151,16 @@ private ProgressBar cdsPoints;
             } else if (questionNumber > 11) {
                 segment.setText("D");
                 segmentName.setText(getString(R.string.segment_D));
+            } else if (questionNumber < 5) {
+                segment.setText("A");
+                segmentName.setText(getString(R.string.segment_A));
             }
         } else if (questionNumber == 17) {
             Intent intent = getIntent();
             finish();
             startActivity(intent);
         }
-    }*/
+    }
 
     //Method which makes button "next" working as intended.
     public void nextQuestion(View view) {
@@ -146,6 +180,8 @@ private ProgressBar cdsPoints;
                     questionAsk.setText(question);
                     nextQ.setText(getString(R.string.result));
                     points();
+                    setLastPoints();
+                    lastPointsCounter(questionNumber, lastPointsGained);
                     rg.clearCheck();
                     questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
                     cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
@@ -158,6 +194,8 @@ private ProgressBar cdsPoints;
                 String question = setQuestion(questionNumber);
                 questionAsk.setText(question);
                 points();
+                setLastPoints();
+                lastPointsCounter(questionNumber, lastPointsGained);
                 rg.clearCheck();
                 questionNum.setText(getString(R.string.question_number) + (questionNumber+1) + getString(R.string.of) + " 17");
                 cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
@@ -208,48 +246,81 @@ private ProgressBar cdsPoints;
 
         switch( position ) {
             case 0:
-                //lastPoints = 0;
+
                 pointsGained += 0;
                 break;
             case 1:
                 if (questionNumber == 10 || questionNumber == 11) {
-                pointsGained += 4;
-                    // lastPoints = 4;
+                    pointsGained += 4;
                 } else {
-                pointsGained += 2;
-                    //  lastPoints = 2;
+                    pointsGained += 2;
                 }
                 break;
             case 2:
                 if (questionNumber == 10 || questionNumber == 11) {
                     pointsGained += 6;
-                    //        lastPoints = 6;
                 } else {
                     pointsGained += 3;
-                    //        lastPoints = 3;
                 }
                 break;
             case 3:
                 if (questionNumber == 10 || questionNumber == 11) {
                     pointsGained += 8;
-                    //       lastPoints = 8;
                 } else {
                     pointsGained += 4;
-                    //       lastPoints = 2;
                 }
                 break;
             case 4:
                 if (questionNumber == 10 || questionNumber == 11) {
                     pointsGained += 10;
-                    //        lastPoints = 10;
                 } else {
                     pointsGained += 5;
-                    //        lastPoints = 5;
                 }
                 break;
         }
-        //  lastPoints += 0;
         return pointsGained;
+    }
+
+    public int setLastPoints() {
+        int id = rg.getCheckedRadioButtonId();
+        View radioB = rg.findViewById(id);
+        int position = rg.indexOfChild(radioB);
+        switch (position) {
+            case 0:
+                lastPointsGained = 0;
+                break;
+            case 1:
+                if (questionNumber == 10 || questionNumber == 11) {
+                    lastPointsGained = 4;
+                } else {
+                    lastPointsGained = 2;
+                }
+                break;
+            case 2:
+                if (questionNumber == 10 || questionNumber == 11) {
+                    lastPointsGained = 6;
+                } else {
+                    lastPointsGained = 3;
+                }
+                break;
+            case 3:
+                if (questionNumber == 10 || questionNumber == 11) {
+                    lastPointsGained = 8;
+                } else {
+                    lastPointsGained = 4;
+                }
+                break;
+            case 4:
+                if (questionNumber == 10 || questionNumber == 11) {
+                    lastPointsGained = 10;
+                } else {
+                    lastPointsGained = 5;
+                }
+                break;
+        }
+        return lastPointsGained;
+
+
     }
     //Method restarts quiz.
     public void restart(View view) {
