@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/standard_margin">
+    <LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/your_dog"/>
+    android:text="@string/your_dog"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    style="segment"/>
     <TextView
+        style="segment"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/final_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,15 +26,20 @@
         android:progress="0"
         android:max="95"/>
     <TextView
+        style="segment"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/clinical_stadium"/>
     <TextView
+        style="segment"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/score_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/points_normal"/>
     <TextView
+        android:textColor="@color/colorScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Alert"/>
@@ -47,4 +59,4 @@
         android:text="@string/quit"
         android:onClick="quit"/>
 
-</LinearLayout>
+</LinearLayout></ScrollView>

@@ -23,10 +23,10 @@
     <string name="D_walk">Załatwia się w domu niedługo po spacerze</string>
     <string name="D_uncommon">Wydalanie w nietypowych miejscach (trawa, beton)</string>
     <string name="Alert">Pamiętaj, aby skonsutlować wynik ze specjalistą!</string>
-    <string name="points_normal">Normalne starzenie się - poniżej 8 punktów</string>
-    <string name="points_low">Delikatne upośledzenie czynności poznawczych &#8211; od 8 do 23 punktów</string>
-    <string name="points_average">Umiarkowane upośledzenie czynności poznawczych &#8211; od 24 do 44 punktów</string>
-    <string name="points_high">Poważne upośledzenie czynności poznawczych &#8211; od 45 do 95 punktów</string>
+    <string name="points_normal">Normalne starzenie się (poniżej 8 punktów)</string>
+    <string name="points_low">Delikatne upośledzenie czynności poznawczych (od 8 do 23 punktów)</string>
+    <string name="points_average">Umiarkowane upośledzenie czynności poznawczych (od 24 do 44 punktów)</string>
+    <string name="points_high">Poważne upośledzenie czynności poznawczych (od 45 do 95 punktów)</string>
     <string name="ans_never">Nigdy</string>
     <string name="ans_once_6_months">Minimum raz na pół roku</string>
     <string name="ans_once_month">Raz w miesiącu</string>
@@ -44,4 +44,6 @@
     <string name="restart">Restart</string>
     <string name="quit">Zamknij</string>
     <string name="url">http://dogosfera.pl/tag/zaburzenia-zachowania-u-starych-psow/</string>
+    <string name="info">Sprawdź czy Twój pies cierpi na Zespół Zaburzeń Poznawczych, chorobę dotykającą psy w starszym wieku.</string>
+    <string name="instruction">Zaznacz częstotliwość występowanie zachowania.</string>
 </resources>
