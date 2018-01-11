@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String pointsGainedKey = "pointsGained";
+    private static final String questionNumberKey = "questionNumber";
     //Variables defined to call findViewById once.
 private TextView segment;
 private TextView segmentName;
@@ -23,8 +25,10 @@ private TextView questionAsk;
 private RadioGroup rg;
 private ProgressBar questNum;
 private ProgressBar cdsPoints;
-private static final String pointsGainedKey = "pointsGained";
-private static final String questionNumberKey = "questionNumber";
+    //variable holds number of points gained in quiz.
+    private int pointsGained = 0;
+    //variable setting correct question from array setQuestion.
+    private int questionNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,7 @@ private static final String questionNumberKey = "questionNumber";
             }
         }
     }
+
     //Saving data (questions, points, etc. state).
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -90,10 +95,6 @@ private static final String questionNumberKey = "questionNumber";
         outState.putInt(pointsGainedKey, pointsGained);
         outState.putInt(questionNumberKey, questionNumber);
     }
-    //variable holds number of points gained in quiz.
-    private int pointsGained = 0;
-    //variable setting correct question from array setQuestion.
-    private int questionNumber = 0;
     //variable stores data for last gained points.
 /*    public int lastPoints;
 
@@ -126,7 +127,6 @@ private static final String questionNumberKey = "questionNumber";
             startActivity(intent);
         }
     }*/
-
 
     //Method which makes button "next" working as intended.
     public void nextQuestion(View view) {
@@ -208,47 +208,47 @@ private static final String questionNumberKey = "questionNumber";
 
         switch( position ) {
             case 0:
-                lastPoints = 0;
+                //lastPoints = 0;
                 pointsGained += 0;
                 break;
             case 1:
                 if (questionNumber == 10 || questionNumber == 11) {
                 pointsGained += 4;
-                lastPoints = 4;
+                    // lastPoints = 4;
                 } else {
                 pointsGained += 2;
-                lastPoints = 2;
+                    //  lastPoints = 2;
                 }
                 break;
             case 2:
                 if (questionNumber == 10 || questionNumber == 11) {
                     pointsGained += 6;
-                    lastPoints = 6;
+                    //        lastPoints = 6;
                 } else {
                     pointsGained += 3;
-                    lastPoints = 3;
+                    //        lastPoints = 3;
                 }
                 break;
             case 3:
                 if (questionNumber == 10 || questionNumber == 11) {
                     pointsGained += 8;
-                    lastPoints = 8;
+                    //       lastPoints = 8;
                 } else {
                     pointsGained += 4;
-                    lastPoints = 2;
+                    //       lastPoints = 2;
                 }
                 break;
             case 4:
                 if (questionNumber == 10 || questionNumber == 11) {
                     pointsGained += 10;
-                    lastPoints = 10;
+                    //        lastPoints = 10;
                 } else {
                     pointsGained += 5;
-                    lastPoints = 5;
+                    //        lastPoints = 5;
                 }
                 break;
         }
-        lastPoints += 0;
+        //  lastPoints += 0;
         return pointsGained;
     }
     //Method restarts quiz.
