@@ -21,15 +21,15 @@ public class MainActivity extends AppCompatActivity {
     public int[] lastPoints = new int[17];
     int lastPointsGained = 0;
     //Variables defined to call findViewById once.
-private TextView segment;
-private TextView segmentName;
-private TextView questionNum;
-private TextView cdsPointsText;
-private Button nextQ;
-private TextView questionAsk;
-private RadioGroup rg;
-private ProgressBar questNum;
-private ProgressBar cdsPoints;
+    private TextView segment;
+    private TextView segmentName;
+    private TextView questionNum;
+    private TextView cdsPointsText;
+    private Button nextQ;
+    private TextView questionAsk;
+    private RadioGroup rg;
+    private ProgressBar questNum;
+    private ProgressBar cdsPoints;
     //variable holds number of points gained in quiz.
     private int pointsGained = 0;
     //variable setting correct question from array setQuestion.
@@ -55,7 +55,7 @@ private ProgressBar cdsPoints;
             questionNumber = savedInstanceState.getInt(questionNumberKey);
             lastPoints = savedInstanceState.getIntArray(lastPointsArrayKey);
             lastPointsGained = savedInstanceState.getInt(lastPointsKey);
-            //if scores was displayed on screen - saved to display them.
+            //if scores was displayed on screen - saved to display it.
             if (questionNumber == 17) {
                 setContentView(R.layout.scores);
                 TextView finalScore = findViewById(R.id.final_score);
@@ -64,33 +64,34 @@ private ProgressBar cdsPoints;
                 finalScore.setText(String.valueOf(pointsGained));
                 cds2.setProgress(pointsGained);
                 //Set description for given scores.
-                if ( pointsGained < 8 ) {
+                if (pointsGained < 8) {
                     scoreDesc.setText(getString(R.string.points_normal));
-                } else if (pointsGained >= 8 && pointsGained <= 23 ) {
+                } else if (pointsGained >= 8 && pointsGained <= 23) {
                     scoreDesc.setText(getString(R.string.points_low));
-                } else if (pointsGained >= 24 && pointsGained <= 44 ) {
+                } else if (pointsGained >= 24 && pointsGained <= 44) {
                     scoreDesc.setText(getString(R.string.points_average));
                 } else if (pointsGained >= 45) {
                     scoreDesc.setText(getString(R.string.points_high));
                 }
             } else {
-            String question = setQuestion(questionNumber);
-            questionAsk.setText(question);
-            questionNum.setText(getString(R.string.question_number) + (questionNumber+1) + getString(R.string.of) + " 17");
-            cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
-            if (questionNumber > 4 && questionNumber < 10) {
-                segment.setText("B");
-                segmentName.setText(getString(R.string.segment_B));
-            } else if (questionNumber > 9 && questionNumber < 12) {
-                segment.setText("C");
-                segmentName.setText(getString(R.string.segment_C));
-            } else if (questionNumber > 11) {
-                segment.setText("D");
-                segmentName.setText(getString(R.string.segment_D));
-                if (questionNumber == 16) {
-                    nextQ.setText(getString(R.string.result));
+                //if question was with id=16 or less it will retrieve data.
+                String question = setQuestion(questionNumber);
+                questionAsk.setText(question);
+                questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
+                cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
+                if (questionNumber > 4 && questionNumber < 10) {
+                    segment.setText("B");
+                    segmentName.setText(getString(R.string.segment_B));
+                } else if (questionNumber > 9 && questionNumber < 12) {
+                    segment.setText("C");
+                    segmentName.setText(getString(R.string.segment_C));
+                } else if (questionNumber > 11) {
+                    segment.setText("D");
+                    segmentName.setText(getString(R.string.segment_D));
+                    if (questionNumber == 16) {
+                        nextQ.setText(getString(R.string.result));
+                    }
                 }
-            }
             }
         }
     }
@@ -105,6 +106,7 @@ private ProgressBar cdsPoints;
         outState.putIntArray(lastPointsArrayKey, lastPoints);
     }
 
+    //it holds points for each of questions
     public int lastPointsCounter(int questionNumber, int lastPointsGained) {
         lastPoints[questionNumber] = lastPointsGained;
         lastPoints[questionNumber] = lastPointsGained;
@@ -126,8 +128,9 @@ private ProgressBar cdsPoints;
         return lastPoints[questionNumber];
     }
 
+    //it holds behavior for clicking back button - going to question before and decrease points.
     public void onBackPressed() {
-        if (questionNumber > 0 && questionNumber < 17 ) {
+        if (questionNumber > 0 && questionNumber < 17) {
             if (questionNumber >= 16) {
                 nextQ.setText(getString(R.string.next));
             }
@@ -137,7 +140,7 @@ private ProgressBar cdsPoints;
             questionAsk.setText(question);
             points();
             rg.clearCheck();
-            questionNum.setText(getString(R.string.question_number) + (questionNumber+1) + getString(R.string.of) + " 17");
+            questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
             cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
             questNum.setProgress(questionNumber);
             cdsPoints.setProgress(pointsGained);
@@ -156,6 +159,7 @@ private ProgressBar cdsPoints;
                 segmentName.setText(getString(R.string.segment_A));
             }
         } else if (questionNumber == 17) {
+            //if scores layout is displayed restart when back button is clicked
             Intent intent = getIntent();
             finish();
             startActivity(intent);
@@ -169,13 +173,14 @@ private ProgressBar cdsPoints;
         } else {
             //moving user to next question
             questionNumber += 1;
-                //run if it is the one before last question
+            //run if it is the one before last question
             if (questionNumber >= 16) {
                 //run if it is last question, showing results
-                if ( questionNumber > 16 ) {
+                if (questionNumber > 16) {
                     points();
                     score(view);
                 } else {
+                    //sets question and TextViews correctly.
                     String question = setQuestion(questionNumber);
                     questionAsk.setText(question);
                     nextQ.setText(getString(R.string.result));
@@ -197,7 +202,7 @@ private ProgressBar cdsPoints;
                 setLastPoints();
                 lastPointsCounter(questionNumber, lastPointsGained);
                 rg.clearCheck();
-                questionNum.setText(getString(R.string.question_number) + (questionNumber+1) + getString(R.string.of) + " 17");
+                questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
                 cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
                 questNum.setProgress(questionNumber);
                 cdsPoints.setProgress(pointsGained);
@@ -238,13 +243,14 @@ private ProgressBar cdsPoints;
         question[16] = getString(R.string.D_uncommon);
         return question[questionNumber];
     }
+
     //This method add points depends of which button is checked.
-    public int points () {
+    public int points() {
         int id = rg.getCheckedRadioButtonId();
         View radioB = rg.findViewById(id);
         int position = rg.indexOfChild(radioB);
 
-        switch( position ) {
+        switch (position) {
             case 0:
 
                 pointsGained += 0;
@@ -281,6 +287,7 @@ private ProgressBar cdsPoints;
         return pointsGained;
     }
 
+    //method to retrieve correct amount of points acquired in last question.
     public int setLastPoints() {
         int id = rg.getCheckedRadioButtonId();
         View radioB = rg.findViewById(id);
@@ -322,12 +329,14 @@ private ProgressBar cdsPoints;
 
 
     }
+
     //Method restarts quiz.
     public void restart(View view) {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
     }
+
     //Method opens browser with given link.
     public void readMore(View view) {
         String url = getString(R.string.url);
@@ -335,10 +344,12 @@ private ProgressBar cdsPoints;
         i.setData(Uri.parse(url));
         startActivity(i);
     }
+
     //Method stops app.
     public void quit(View view) {
         finish();
     }
+
     public void score(View view) {
         setContentView(R.layout.scores);
         TextView finalScore = findViewById(R.id.final_score);
@@ -347,11 +358,11 @@ private ProgressBar cdsPoints;
         finalScore.setText(String.valueOf(pointsGained));
         cds2.setProgress(pointsGained);
         //Set description for given scores.
-        if ( pointsGained < 8 ) {
+        if (pointsGained < 8) {
             scoreDesc.setText(getString(R.string.points_normal));
-        } else if (pointsGained >= 8 && pointsGained <= 23 ) {
+        } else if (pointsGained >= 8 && pointsGained <= 23) {
             scoreDesc.setText(getString(R.string.points_low));
-        } else if (pointsGained >= 24 && pointsGained <= 44 ) {
+        } else if (pointsGained >= 24 && pointsGained <= 44) {
             scoreDesc.setText(getString(R.string.points_average));
         } else if (pointsGained >= 45) {
             scoreDesc.setText(getString(R.string.points_high));
