@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup rg;
     private ProgressBar questNum;
     private ProgressBar cdsPoints;
+    private Button backButton;
     //variable holds number of points gained in quiz.
     private int pointsGained = 0;
     //variable setting correct question from array setQuestion.
@@ -51,12 +52,17 @@ public class MainActivity extends AppCompatActivity {
         questNum = findViewById(R.id.questions_bar);
         cdsPoints = findViewById(R.id.cds_bar);
         rg = findViewById(R.id.q1);
+        backButton = findViewById(R.id.back);
+        backButton.setEnabled(false);
         //Check saved data and returns it.
         if (savedInstanceState != null) {
             pointsGained = savedInstanceState.getInt(pointsGainedKey);
             questionNumber = savedInstanceState.getInt(questionNumberKey);
             lastPoints = savedInstanceState.getIntArray(lastPointsArrayKey);
             lastPointsGained = savedInstanceState.getInt(lastPointsKey);
+            if (questionNumber != 0) {
+                backButton.setEnabled(true);
+            }
             //if scores was displayed on screen - saved to display it.
             if (questionNumber == 17) {
                 setContentView(R.layout.scores);
@@ -138,9 +144,11 @@ public class MainActivity extends AppCompatActivity {
             }
             pointsGained -= lastPoints[questionNumber];
             questionNumber -= 1;
+            if (questionNumber == 0) {
+                backButton.setEnabled(false);
+            }
             String question = setQuestion(questionNumber);
             questionAsk.setText(question);
-            points();
             rg.clearCheck();
             questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
             cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
@@ -170,8 +178,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void backPressed(View view) {
+        onBackPressed();
+    }
+
     //Method which makes button "next" working as intended.
     public void nextQuestion(View view) {
+        backButton.setEnabled(true);
         //statement check is there any button checked, if not do nothing.
         if (rg.getCheckedRadioButtonId() == -1) {
         } else {

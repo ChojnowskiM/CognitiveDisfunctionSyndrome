@@ -46,4 +46,5 @@
     <string name="url">http://dogosfera.pl/tag/zaburzenia-zachowania-u-starych-psow/</string>
     <string name="info">Sprawdź czy Twój pies cierpi na Zespół Zaburzeń Poznawczych, chorobę dotykającą psy w starszym wieku.</string>
     <string name="instruction">Zaznacz częstotliwość występowanie zachowania.</string>
+    <string name="back">Cofnij</string>
 </resources>
