@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 //if question was with id=16 or less it will retrieve data.
                 String question = setQuestion(questionNumber);
                 questionAsk.setText(question);
-                questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
-                cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
+                questionNum.setText(getString(R.string.question_number) + " " + (questionNumber + 1) + " " + getString(R.string.of) + " " + " 17");
+                cdsPointsText.setText(getString(R.string.dog_results) + " " + pointsGained);
                 if (questionNumber > 4 && questionNumber < 10) {
                     segment.setText("B");
                     segmentName.setText(getString(R.string.segment_B));
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
             String question = setQuestion(questionNumber);
             questionAsk.setText(question);
             rg.clearCheck();
-            questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
-            cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
+            questionNum.setText(getString(R.string.question_number) + " " + (questionNumber + 1) + " " + getString(R.string.of) + " " + " 17");
+            cdsPointsText.setText(getString(R.string.dog_results) + " " + pointsGained);
             questNum.setProgress(questionNumber);
             cdsPoints.setProgress(pointsGained);
             //changing headers depends of question
@@ -214,8 +214,8 @@ public class MainActivity extends AppCompatActivity {
                     setLastPoints();
                     lastPointsCounter(questionNumber, lastPointsGained);
                     rg.clearCheck();
-                    questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
-                    cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
+                    questionNum.setText(getString(R.string.question_number) + " " + (questionNumber + 1) + " " + getString(R.string.of) + " " + " 17");
+                    cdsPointsText.setText(getString(R.string.dog_results) + " " + pointsGained);
                     questNum.setProgress(questionNumber);
                     cdsPoints.setProgress(pointsGained);
                 }
@@ -228,8 +228,8 @@ public class MainActivity extends AppCompatActivity {
                 setLastPoints();
                 lastPointsCounter(questionNumber, lastPointsGained);
                 rg.clearCheck();
-                questionNum.setText(getString(R.string.question_number) + (questionNumber + 1) + getString(R.string.of) + " 17");
-                cdsPointsText.setText(getString(R.string.dog_results) + pointsGained);
+                questionNum.setText(getString(R.string.question_number) + " " + (questionNumber + 1) + " " + getString(R.string.of) + " " + " 17");
+                cdsPointsText.setText(getString(R.string.dog_results) + " " + pointsGained);
                 questNum.setProgress(questionNumber);
                 cdsPoints.setProgress(pointsGained);
                 //changing headers depends of question
